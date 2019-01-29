@@ -11,7 +11,7 @@ const Footer = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        forismatic
+        Forismatic
       </a>
     </span>
     <span>|</span>

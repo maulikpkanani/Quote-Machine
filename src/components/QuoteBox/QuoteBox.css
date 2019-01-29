@@ -18,6 +18,14 @@
 	text-align: center;
 	margin-bottom: 1.3rem;
 	line-height: 1.45;
+	font-size: 1.4rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: font-size 2s;
+}
+
+#text:hover {
+	font-size: 1.6rem;
 }
 
 #author {
@@ -44,6 +52,9 @@
 	border-radius: 5px;
 	font-size: 1.4rem;
 	border: 1px solid #ccc;
+	font-size: 1.4rem;
+	font-weight: 600;
+	transition: background 1.5s;
 }
 
 .quote-controls button {
@@ -54,6 +65,14 @@
 	color: inherit;
 	border-radius: 5px;
 	cursor: pointer;
+	font-size: 1.4rem;
+	font-weight: 600;
+	transition: background 1.5s;
+}
+
+.quote-controls button:hover,
+.quote-controls a:hover {
+	background: orangered;
 }
 
 .quote-controls button:disabled {

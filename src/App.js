@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
 import Header from './components/Header/Header'
+import './App.css'
 import Theme from './components/Theme/Theme'
 import Footer from './components/Footer/Footer'
 import QuoteBox from './components/QuoteBox/QuoteBox'
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import {
+  faArrowRight,
+  faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTwitter, faArrowRight, faExclamationCircle)
 
 class App extends Component {
   state = {
@@ -20,6 +30,11 @@ class App extends Component {
   }
 
   getNewQuote = () => {
+    this.setState({
+      isFetching: !this.state.isFetching,
+      error: false
+    })
+
     fetch(
       'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
     )
@@ -33,17 +48,24 @@ class App extends Component {
         }
 
         this.setState({
+          isFetching: !this.state.isFetching,
           quote
         })
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          error: true,
+          isFetching: !this.state.isFetching
+        })
+      })
   }
 
-    handleThemeColor= color=> {
-          this.setState({
-            theme:color
-          })
-    }
+  handleThemeColor = color => {
+    this.setState({
+      theme: color
+    })
+  }
 
   render () {
     const { isFetching, quote, error, theme } = this.state
@@ -53,9 +75,13 @@ class App extends Component {
         <div className='container'>
           <Header title='Quote Machine' />
           <div id='quote-box'>
-            <QuoteBox quote={quote} onNewQuote={this.getNewQuote} 
-              onChangeTheme = {this.handleThemeColor}
-              activeTheme = {theme}
+            <QuoteBox
+              quote={quote}
+              onNewQuote={this.getNewQuote}
+              isFetching={isFetching}
+              isError={error}
+              onChangeTheme={this.handleThemeColor}
+              activeTheme={theme}
             />
           </div>
           <Footer />
